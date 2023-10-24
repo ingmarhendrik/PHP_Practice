@@ -1,46 +1,40 @@
-<!--Ülesanne 2. Ingmar Hendrik Rohusaar. 10.oktoober-->
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trapetsi ja rombi kalkulaator</title>
 </head>
 <body>
-    <code>
+    <h1>Trapetsi ja rombi kalkulaator</h1>
+    <form action="" method="get">
+        <label for="trapezo_a">Alumine pikkus (a):</label>
+        <input type="number" step="0.1" id="trapezo_a" name="trapezo_a" required><br>
+
+        <label for="trapezo_b">Ülemine pikkus (b):</label>
+        <input type="number" step="0.1" id="trapezo_b" name="trapezo_b" required><br>
+
+        <label for="trapezo_height">Kõrgus (h):</label>
+        <input type="number" step="0.1" id="trapezo_height" name="trapezo_height" required><br>
+
+        <label for="rhombus_side">Rombi külg (s):</label>
+        <input type="number" step="0.1" id="rhombus_side" name="rhombus_side" required><br>
+
+        <input type="submit" value="Arvuta">
+    </form>
+
     <?php
-    // 1.
-    $var1 = 60;
-    $var2 = 30;
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        if (isset($_GET["trapezo_a"]) && isset($_GET["trapezo_b"]) && isset($_GET["trapezo_height"]) && isset($_GET["rhombus_side"])) {
+            $trapezo_a = $_GET["trapezo_a"];
+            $trapezo_b = $_GET["trapezo_b"];
+            $trapezo_height = $_GET["trapezo_height"];
+            $rhombus_side = $_GET["rhombus_side"];
 
-    echo "Liitmine: $var1 + $var2 = " . ($var1 + $var2) . "<br>";
-    echo "Lahutamine: $var1 - $var2 = " . ($var1 - $var2) . "<br>";
-    echo "Korrutamine: $var1 * $var2 = " . ($var1 * $var2) . "<br>";
-    echo "Jagamine: $var1 / $var2 = " . ($var1 / $var2) . "<br>";
-    echo "Jäägi leidmine: $var1 % $var2 = " . ($var1 % $var2) . "<br>";
+            $area_of_trapezo  = 0.5 * ($trapezo_a + $trapezo_b) * $trapezo_height;
+            $perimeter_of_rhombus = 4 * $rhombus_side;
 
-    // 2. 
-
-    function convertMillimetres($number) {
-        $number_in_cm = round($number / 10, 2);
-        $number_in_m = round($number / 1000, 2);
-
-        echo "Number sentimeetrites: $number_in_cm<br>Number meetrites: $number_in_m<br>";
+            echo "<p>Trapetsi pindala on " . number_format($area_of_trapezo, 1) . " ruutühikut ja rombi ümbermõõt on " . number_format($perimeter_of_rhombus, 1) . " ühikut.</p>";
+        }
     }
-
-
-   // 3. 
-
-    function findPerimeterAreaRightTriangle($a, $b, $c) {
-        $perimeter = round($a + $b + $c);
-        $area = round(sqrt($perimeter * ($perimeter - $a) * ($perimeter - $b) * ($perimeter - $c)));
-        echo "Täisnurkse kolmnurga ümbermõõt on $perimeter ja selle pindala $area";
-    }
-      
-
-    convertMillimetres(600);
-    findPerimeterAreaRightTriangle(3, 4, 5); 
     ?>
-    </code>
 </body>
 </html>
